@@ -1342,7 +1342,7 @@ textarea {
 }
 
 .team-category {
-  margin-bottom: 80px;
+  margin-bottom: 64px;
 }
 
 .team-wrap {
@@ -1352,78 +1352,168 @@ textarea {
   padding-right: 24px;
 }
 
+.category-title,
 .team-category h2 {
   font-family: var(--display);
   font-weight: 700;
-  font-size: calc(1.25rem + 0.6vw);
+  font-size: calc(1.25rem + 0.5vw);
   line-height: 1.3;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(201, 162, 39, 0.3);
+  border-bottom: 1px solid rgba(201, 162, 39, 0.35);
+  color: var(--black);
   transition: color 300ms ease-in-out;
 }
 
+.category-title:hover,
 .team-category h2:hover {
   color: var(--gold);
 }
 
+/* Featured Advocate (Head of Chambers) */
+.featured-card,
 .team-head {
   display: grid;
-  grid-template-columns: minmax(280px, 400px) 1fr;
-  gap: 2.5rem;
+  grid-template-columns: minmax(260px, 340px) 1fr;
+  gap: 3rem;
   align-items: center;
+  background: var(--white);
 }
 
+.featured-media {
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 4 / 5;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: #0f172a;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.featured-content,
 .team-head-info {
-  align-self: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
+.featured-name,
 .team-head-name {
   display: block;
   font-family: var(--display);
-  font-size: calc(1.35rem + 0.75vw);
+  font-size: calc(1.4rem + 0.8vw);
   font-weight: 600;
   line-height: 1.25;
+  color: #111827;
   margin-bottom: 8px;
   transition: color 300ms ease-in-out;
 }
 
+.featured-name:hover,
 .team-head:hover .team-head-name,
 .team-head-name:hover,
 .team-head-name:focus-visible {
   color: var(--gold);
 }
 
+.featured-meta {
+  font-size: 0.875rem;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.featured-credentials {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gold);
+}
+
+.featured-bar-id {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.featured-bio,
 .team-head-desc {
-  font-size: calc(0.9715rem + 0.2862vw);
-  line-height: 1.7;
-  margin-bottom: 0;
+  font-size: calc(0.95rem + 0.15vw);
+  line-height: 1.75;
   color: #374151;
 }
 
-.team-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
-  margin-top: 2.5rem;
+.featured-bio p {
+  margin-bottom: 12px;
 }
 
+.featured-bio p:last-child {
+  margin-bottom: 0;
+}
+
+/* Directory Grid (Other Advocates) */
+.directory-grid,
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.directory-card,
 .member-card {
   display: flex;
   flex-direction: column;
 }
 
+.directory-media {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: #0f172a;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.directory-info {
+  padding-top: 14px;
+}
+
+.directory-name,
 .member-name {
+  display: block;
   font-family: var(--display);
   font-size: 1.15rem;
   font-weight: 600;
   line-height: 1.35;
-  margin-top: 10px;
+  color: #111827;
   margin-bottom: 4px;
   transition: color 300ms ease-in-out;
+}
+
+.directory-card:hover .directory-name,
+.member-card:hover .member-name {
+  color: var(--gold);
+}
+
+.directory-credentials {
+  font-size: 0.8125rem;
+  color: #6b7280;
+  margin-bottom: 2px;
+  line-height: 1.4;
+}
+
+.directory-id {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--gold);
+  line-height: 1.4;
+}
+
+.directory-bio {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #4b5563;
+  margin-top: 8px;
 }
 
 .photo-grid {
@@ -1692,18 +1782,20 @@ textarea {
     padding-right: 16px;
   }
 
+  .featured-card,
   .team-head {
-    grid-template-columns: minmax(240px, 320px) 1fr;
+    grid-template-columns: minmax(240px, 300px) 1fr;
     gap: 2rem;
   }
 
+  .directory-grid,
   .team-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
   }
 
   .team-category {
-    margin-bottom: 60px;
+    margin-bottom: 56px;
   }
 }
 
@@ -1756,49 +1848,56 @@ textarea {
   }
 
   .team-wrap {
-    margin-top: 28px;
+    margin-top: 32px;
     margin-bottom: 48px;
-    padding-left: 12px;
-    padding-right: 12px;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
-  .team-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
-  }
-
+  .featured-card,
   .team-head {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
 
+  .featured-media,
   .team-head > div:first-child {
-    max-width: 320px;
+    max-width: 300px;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
   }
 
+  .featured-content,
   .team-head-info {
     text-align: center;
+  }
+
+  .category-title,
+  .team-category h2 {
+    font-size: 1.35rem;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
   }
 
   .team-category {
     margin-bottom: 48px;
   }
 
-  .team-category h2 {
-    font-size: 1.35rem;
-    margin-bottom: 18px;
-    padding-bottom: 8px;
-  }
-
+  .featured-name,
   .team-head-name {
     margin-bottom: 8px;
   }
 
+  .featured-bio,
   .team-head-desc {
     margin-bottom: 0;
+  }
+
+  .directory-grid,
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
   }
 }
 
@@ -1820,11 +1919,34 @@ textarea {
     padding: 24px;
   }
 
+  .directory-grid,
   .team-grid {
     grid-template-columns: 1fr;
     max-width: 320px;
     margin-left: auto;
     margin-right: auto;
+    gap: 1.75rem;
+  }
+
+  .directory-info {
+    text-align: center;
+  }
+
+  .featured-media {
+    max-width: 280px;
+  }
+}
+
+@media (max-width: 390px) {
+  .team-wrap {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .featured-media,
+  .directory-grid,
+  .team-grid {
+    max-width: 280px;
   }
 }
 

@@ -8,6 +8,7 @@ interface AdvocateImageProps {
   designation?: string;
   className?: string;
   priority?: boolean;
+  objectPosition?: string;
 }
 
 /**
@@ -35,6 +36,7 @@ export function AdvocateImage({
   designation,
   className = "",
   priority = false,
+  objectPosition = "top center",
 }: AdvocateImageProps) {
   const [prevSrc, setPrevSrc] = useState(src);
   const [error, setError] = useState(false);
@@ -56,6 +58,7 @@ export function AdvocateImage({
         loading={priority ? "eager" : "lazy"}
         decoding="async"
         className={`w-full h-full object-cover transition-opacity duration-300 ${className}`}
+        style={{ objectPosition }}
         onError={() => setError(true)}
       />
     );

@@ -24,75 +24,110 @@ export default async function TeamPage() {
   const locale = await getLocale();
   const advocates = await getAdvocateProfiles();
 
-  const grouped = new Map<string, typeof advocates>();
-  for (const adv of advocates) {
-    const list = grouped.get(adv.designation) ?? [];
+  // Find the featured advocate: Head of Chambers (excluding Deputy Head) or first advocate by sort order
+  const featured =
+    advocates.find(
+      (a) =>
+        (a.designation.toLowerCase().includes("head") &&
+          !a.designation.toLowerCase().includes("deputy")) ||
+        a.order === 0,
+    ) ?? advocates[0];
+
+  // All other advocates exclude the featured advocate to prevent duplicate rendering
+  const otherAdvocates = featured
+    ? advocates.filter((a) => a.id !== featured.id)
+    : advocates;
+
+  // Group the remaining advocates by their category/designation
+  const categoriesMap = new Map<string, typeof advocates>();
+  for (const adv of otherAdvocates) {
+    const list = categoriesMap.get(adv.designation) ?? [];
     list.push(adv);
-    grouped.set(adv.designation, list);
+    categoriesMap.set(adv.designation, list);
   }
 
   return (
     <>
       <PageTitle locale={locale} label="team" />
       <div className="compact team-wrap">
-        {Array.from(grouped.entries()).map(([designation, list]) => {
-          const [featured, ...rest] = list;
-          return (
-            <section key={designation} className="team-category">
-              <h2 className="transition-colors duration-300 ease-in-out hover:text-gold">
-                {designation}
-              </h2>
-              {featured ? (
-                <div className="team-head group">
-                  <div className="aspect-square overflow-hidden rounded-lg bg-neutral-900 border border-neutral-200/50 shadow-sm">
-                    <AdvocateImage
-                      src={featured.imageUrl}
-                      name={featured.name}
-                      designation={featured.designation}
-                      priority
-                    />
-                  </div>
-                  <div className="team-head-info">
-                    <div className="team-head-name transition-colors duration-300 ease-in-out group-hover:text-gold">
-                      {featured.name}
-                    </div>
-                    <p className="text-xs font-semibold uppercase tracking-wider text-gold mb-3">
-                      {featured.credentials}
-                      {featured.barCouncilId ? ` • Bar Council ID: ${featured.barCouncilId}` : ""}
-                    </p>
-                    <div
-                      className="team-head-desc"
-                      dangerouslySetInnerHTML={{ __html: featured.bio }}
-                    />
-                  </div>
-                </div>
-              ) : null}
+        {/* Featured Advocate: Balanced 2-column layout */}
+        {featured ? (
+          <section className="team-category team-category-featured">
+            <h2 className="category-title">
+              {featured.designation}
+            </h2>
+            <div className="featured-card">
+              <div className="featured-media">
+                <AdvocateImage
+                  src={featured.imageUrl}
+                  name={featured.name}
+                  designation={featured.designation}
+                  objectPosition="top center"
+                  priority
+                />
+              </div>
+              <div className="featured-content">
+                <h3 className="featured-name">
+                  {featured.name}
+                </h3>
+                <p className="featured-meta">
+                  <span className="featured-credentials">{featured.credentials}</span>
+                  {featured.barCouncilId ? (
+                    <span className="featured-bar-id"> • Bar Council ID: {featured.barCouncilId}</span>
+                  ) : null}
+                </p>
+                {featured.bio ? (
+                  <div
+                    className="featured-bio"
+                    dangerouslySetInnerHTML={{ __html: featured.bio }}
+                  />
+                ) : null}
+              </div>
+            </div>
+          </section>
+        ) : null}
 
-              {rest.length > 0 ? (
-                <div className="team-grid">
-                  {rest.map((member) => (
-                    <article key={member.id} className="member-card group">
-                      <div className="aspect-square overflow-hidden rounded-lg bg-neutral-900 border border-neutral-200/50 shadow-sm mb-3">
-                        <AdvocateImage
-                          src={member.imageUrl}
-                          name={member.name}
-                          designation={member.designation}
-                        />
-                      </div>
-                      <h3 className="member-name transition-colors duration-300 ease-in-out group-hover:text-gold">
-                        {member.name}
-                      </h3>
-                      <p className="text-xs text-neutral-500 mb-1">{member.credentials}</p>
-                      {member.barCouncilId ? (
-                        <p className="text-xs text-gold font-medium">ID: {member.barCouncilId}</p>
-                      ) : null}
-                    </article>
-                  ))}
-                </div>
-              ) : null}
-            </section>
-          );
-        })}
+        {/* Directory Categories: Consistent responsive grid */}
+        {Array.from(categoriesMap.entries()).map(([designation, members]) => (
+          <section key={designation} className="team-category">
+            <h2 className="category-title">
+              {designation}
+            </h2>
+            <div className="directory-grid">
+              {members.map((member) => (
+                <article key={member.id} className="directory-card group">
+                  <div className="directory-media">
+                    <AdvocateImage
+                      src={member.imageUrl}
+                      name={member.name}
+                      designation={member.designation}
+                      objectPosition="top center"
+                    />
+                  </div>
+                  <div className="directory-info">
+                    <h3 className="directory-name">
+                      {member.name}
+                    </h3>
+                    <p className="directory-credentials">
+                      {member.credentials}
+                    </p>
+                    {member.barCouncilId ? (
+                      <p className="directory-id">
+                        ID: {member.barCouncilId}
+                      </p>
+                    ) : null}
+                    {member.bio ? (
+                      <div
+                        className="directory-bio line-clamp-3"
+                        dangerouslySetInnerHTML={{ __html: member.bio }}
+                      />
+                    ) : null}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        ))}
       </div>
     </>
   );
