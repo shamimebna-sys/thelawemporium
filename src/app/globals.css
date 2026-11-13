@@ -1342,178 +1342,137 @@ textarea {
 }
 
 .team-category {
-  margin-bottom: 64px;
+  margin-bottom: 150px;
 }
 
 .team-wrap {
-  margin-top: 48px;
-  margin-bottom: 80px;
-  padding-left: 24px;
-  padding-right: 24px;
+  margin-top: 60px;
+  margin-bottom: 120px;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
-.category-title,
-.team-category h2 {
+.team-category-title,
+.team-category h2,
+.team-category h4 {
   font-family: var(--display);
   font-weight: 700;
-  font-size: calc(1.25rem + 0.5vw);
-  line-height: 1.3;
-  margin-bottom: 28px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid rgba(201, 162, 39, 0.35);
+  font-size: calc(1.10364rem + 0.52405vw);
+  line-height: 1.2;
+  margin-bottom: 20px;
   color: var(--black);
   transition: color 300ms ease-in-out;
 }
 
-.category-title:hover,
-.team-category h2:hover {
+.team-category-title:hover,
+.team-category h2:hover,
+.team-category h4:hover {
   color: var(--gold);
 }
 
-/* Featured Advocate (Head of Chambers) */
-.featured-card,
+/* Head of Chambers (2-column layout matching Law Lab _head_1k6oik) */
 .team-head {
   display: grid;
-  grid-template-columns: minmax(260px, 340px) 1fr;
-  gap: 3rem;
-  align-items: center;
-  background: var(--white);
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
 }
 
-.featured-media {
-  width: 100%;
-  max-width: 340px;
-  aspect-ratio: 4 / 5;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  background-color: #0f172a;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
-}
-
-.featured-content,
 .team-head-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  align-self: flex-end;
 }
 
-.featured-name,
 .team-head-name {
   display: block;
   font-family: var(--display);
-  font-size: calc(1.4rem + 0.8vw);
-  font-weight: 600;
-  line-height: 1.25;
-  color: #111827;
-  margin-bottom: 8px;
+  font-size: calc(1.10364rem + 0.52405vw);
+  font-weight: 400;
+  line-height: 1.5;
+  margin-bottom: 30px;
+  color: var(--black);
   transition: color 300ms ease-in-out;
 }
 
-.featured-name:hover,
 .team-head:hover .team-head-name,
 .team-head-name:hover,
 .team-head-name:focus-visible {
   color: var(--gold);
 }
 
-.featured-meta {
-  font-size: 0.875rem;
-  margin-bottom: 16px;
-  line-height: 1.5;
-}
-
-.featured-credentials {
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--gold);
-}
-
-.featured-bar-id {
-  color: #6b7280;
-  font-weight: 500;
-}
-
-.featured-bio,
 .team-head-desc {
-  font-size: calc(0.95rem + 0.15vw);
-  line-height: 1.75;
+  font-size: calc(0.9715rem + 0.2862vw);
+  line-height: 1.6;
+  margin-bottom: 20px;
   color: #374151;
 }
 
-.featured-bio p {
-  margin-bottom: 12px;
+.team-head-desc p {
+  margin-bottom: 0.5rem;
 }
 
-.featured-bio p:last-child {
+.team-head-desc p:last-child {
   margin-bottom: 0;
 }
 
-/* Directory Grid (Other Advocates) */
-.directory-grid,
+/* Square 1:1 image frame matching Law Lab _container_1bua10 */
+.team-frame {
+  width: 100%;
+  position: relative;
+  padding-bottom: 100%;
+  overflow: hidden;
+  background: #f3f4f6;
+}
+
+.team-frame > img,
+.team-frame > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* Category Grid matching Law Lab _category-container_1k6oik */
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
 }
 
-.directory-card,
-.member-card {
+.team-member-item {
   display: flex;
   flex-direction: column;
 }
 
-.directory-media {
-  width: 100%;
-  aspect-ratio: 4 / 5;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  background-color: #0f172a;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-.directory-info {
-  padding-top: 14px;
-}
-
-.directory-name,
 .member-name {
-  display: block;
+  margin-top: 10px;
   font-family: var(--display);
-  font-size: 1.15rem;
-  font-weight: 600;
-  line-height: 1.35;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.4;
   color: #111827;
-  margin-bottom: 4px;
   transition: color 300ms ease-in-out;
 }
 
-.directory-card:hover .directory-name,
-.member-card:hover .member-name {
+.team-member-item:hover .member-name,
+.member-name:hover {
   color: var(--gold);
 }
 
-.directory-credentials {
+.member-credentials {
   font-size: 0.8125rem;
   color: #6b7280;
-  margin-bottom: 2px;
+  margin-top: 2px;
   line-height: 1.4;
 }
 
-.directory-id {
+.member-bar-id {
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--gold);
   line-height: 1.4;
-}
-
-.directory-bio {
-  font-size: 0.875rem;
-  line-height: 1.5;
-  color: #4b5563;
-  margin-top: 8px;
+  margin-top: 1px;
 }
 
 .photo-grid {
@@ -1776,26 +1735,10 @@ textarea {
   }
 
   .team-wrap {
-    margin-top: 36px;
-    margin-bottom: 60px;
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
-  .featured-card,
-  .team-head {
-    grid-template-columns: minmax(240px, 300px) 1fr;
-    gap: 2rem;
-  }
-
-  .directory-grid,
-  .team-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-  }
-
-  .team-category {
-    margin-bottom: 56px;
+    margin-top: 40px;
+    margin-bottom: 100px;
+    padding-left: 5%;
+    padding-right: 5%;
   }
 }
 
@@ -1847,57 +1790,24 @@ textarea {
     grid-template-columns: 1fr;
   }
 
-  .team-wrap {
-    margin-top: 32px;
-    margin-bottom: 48px;
-    padding-left: 16px;
-    padding-right: 16px;
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .featured-card,
   .team-head {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  .featured-media,
-  .team-head > div:first-child {
-    max-width: 300px;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .featured-content,
-  .team-head-info {
-    text-align: center;
-  }
-
-  .category-title,
-  .team-category h2 {
-    font-size: 1.35rem;
-    margin-bottom: 20px;
-    padding-bottom: 8px;
+    grid-template-columns: auto;
   }
 
   .team-category {
-    margin-bottom: 48px;
+    margin-bottom: 100px;
   }
 
-  .featured-name,
   .team-head-name {
-    margin-bottom: 8px;
+    margin-bottom: 15px;
   }
 
-  .featured-bio,
   .team-head-desc {
     margin-bottom: 0;
-  }
-
-  .directory-grid,
-  .team-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
   }
 }
 
@@ -1919,34 +1829,8 @@ textarea {
     padding: 24px;
   }
 
-  .directory-grid,
   .team-grid {
     grid-template-columns: 1fr;
-    max-width: 320px;
-    margin-left: auto;
-    margin-right: auto;
-    gap: 1.75rem;
-  }
-
-  .directory-info {
-    text-align: center;
-  }
-
-  .featured-media {
-    max-width: 280px;
-  }
-}
-
-@media (max-width: 390px) {
-  .team-wrap {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-
-  .featured-media,
-  .directory-grid,
-  .team-grid {
-    max-width: 280px;
   }
 }
 

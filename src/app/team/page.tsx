@@ -24,7 +24,7 @@ export default async function TeamPage() {
   const locale = await getLocale();
   const advocates = await getAdvocateProfiles();
 
-  // Find the featured advocate: Head of Chambers (excluding Deputy Head) or first advocate by sort order
+  // Head of Chambers is the featured lead profile (replicates Law Lab Category 1)
   const featured =
     advocates.find(
       (a) =>
@@ -33,12 +33,12 @@ export default async function TeamPage() {
         a.order === 0,
     ) ?? advocates[0];
 
-  // All other advocates exclude the featured advocate to prevent duplicate rendering
+  // All other advocates exclude the featured lead to prevent duplicate rendering
   const otherAdvocates = featured
     ? advocates.filter((a) => a.id !== featured.id)
     : advocates;
 
-  // Group the remaining advocates by their category/designation
+  // Group other advocates by category preserving order (Deputy Head, Senior Counsel, Counsel, etc.)
   const categoriesMap = new Map<string, typeof advocates>();
   for (const adv of otherAdvocates) {
     const list = categoriesMap.get(adv.designation) ?? [];
@@ -50,14 +50,14 @@ export default async function TeamPage() {
     <>
       <PageTitle locale={locale} label="team" />
       <div className="compact team-wrap">
-        {/* Featured Advocate: Balanced 2-column layout */}
+        {/* Head of Chambers: 2-column layout matching Law Lab _head_1k6oik */}
         {featured ? (
-          <section className="team-category team-category-featured">
-            <h2 className="category-title">
+          <div className="team-category">
+            <h4 className="team-category-title">
               {featured.designation}
-            </h2>
-            <div className="featured-card">
-              <div className="featured-media">
+            </h4>
+            <div className="team-head">
+              <div className="team-frame">
                 <AdvocateImage
                   src={featured.imageUrl}
                   name={featured.name}
@@ -66,37 +66,34 @@ export default async function TeamPage() {
                   priority
                 />
               </div>
-              <div className="featured-content">
-                <h3 className="featured-name">
+              <div className="team-head-info">
+                <div className="team-head-name">
                   {featured.name}
-                </h3>
-                <p className="featured-meta">
-                  <span className="featured-credentials">{featured.credentials}</span>
-                  {featured.barCouncilId ? (
-                    <span className="featured-bar-id"> • Bar Council ID: {featured.barCouncilId}</span>
+                </div>
+                <div className="team-head-desc">
+                  <p>
+                    {featured.credentials}
+                    {featured.barCouncilId ? ` • Bar Council ID: ${featured.barCouncilId}` : ""}
+                  </p>
+                  {featured.bio ? (
+                    <div dangerouslySetInnerHTML={{ __html: featured.bio }} />
                   ) : null}
-                </p>
-                {featured.bio ? (
-                  <div
-                    className="featured-bio"
-                    dangerouslySetInnerHTML={{ __html: featured.bio }}
-                  />
-                ) : null}
+                </div>
               </div>
             </div>
-          </section>
+          </div>
         ) : null}
 
-        {/* Directory Categories: Consistent responsive grid */}
+        {/* Other Categories (Deputy Head of Chambers, Senior Counsel, Counsel, etc.): Grid matching Law Lab _category-container_1k6oik */}
         {Array.from(categoriesMap.entries()).map(([designation, members]) => (
-          <section key={designation} className="team-category">
-            <h2 className="category-title">
+          <div key={designation} className="team-category">
+            <h4 className="team-category-title">
               {designation}
-            </h2>
-            <div className="directory-grid">
+            </h4>
+            <div className="team-grid">
               {members.map((member) => (
-                <article key={member.id} className="directory-card group">
-                  <div className="directory-media">
+                <div key={member.id} className="team-member-item group">
+                  <div className="team-frame">
                     <AdvocateImage
                       src={member.imageUrl}
                       name={member.name}
@@ -104,29 +101,17 @@ export default async function TeamPage() {
                       objectPosition="top center"
                     />
                   </div>
-                  <div className="directory-info">
-                    <h3 className="directory-name">
-                      {member.name}
-                    </h3>
-                    <p className="directory-credentials">
-                      {member.credentials}
-                    </p>
-                    {member.barCouncilId ? (
-                      <p className="directory-id">
-                        ID: {member.barCouncilId}
-                      </p>
-                    ) : null}
-                    {member.bio ? (
-                      <div
-                        className="directory-bio line-clamp-3"
-                        dangerouslySetInnerHTML={{ __html: member.bio }}
-                      />
-                    ) : null}
+                  <div className="member-name">
+                    {member.name}
                   </div>
-                </article>
+                  <p className="member-credentials">{member.credentials}</p>
+                  {member.barCouncilId ? (
+                    <p className="member-bar-id">ID: {member.barCouncilId}</p>
+                  ) : null}
+                </div>
               ))}
             </div>
-          </section>
+          </div>
         ))}
       </div>
     </>

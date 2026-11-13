@@ -41,7 +41,7 @@ export function AdvocateImage({
   const [prevSrc, setPrevSrc] = useState(src);
   const [error, setError] = useState(false);
 
-  // Sync state during render when prop changes (React recommended pattern)
+  // Sync state during render when prop changes
   if (src !== prevSrc) {
     setPrevSrc(src);
     setError(false);
@@ -57,26 +57,26 @@ export function AdvocateImage({
         alt={name}
         loading={priority ? "eager" : "lazy"}
         decoding="async"
-        className={`w-full h-full object-cover transition-opacity duration-300 ${className}`}
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${className}`}
         style={{ objectPosition }}
         onError={() => setError(true)}
       />
     );
   }
 
-  // Graceful dignified advocate fallback graphic
+  // Dignified chambers fallback graphic filling the frame completely
   return (
     <div
-      className={`relative w-full h-full flex flex-col items-center justify-center p-4 sm:p-6 select-none bg-gradient-to-br from-[#0c141f] via-[#141e2b] to-[#1c293a] text-center overflow-hidden ${className}`}
+      className={`absolute inset-0 w-full h-full flex flex-col items-center justify-center p-4 sm:p-6 select-none bg-gradient-to-br from-[#0c141f] via-[#141e2b] to-[#1c293a] text-center overflow-hidden ${className}`}
       role="img"
       aria-label={`${name} - ${designation || "Advocate"}`}
     >
       {/* Decorative Gold Inset Border */}
-      <div className="absolute inset-2 sm:inset-3 border border-gold/20 rounded-md pointer-events-none" />
+      <div className="absolute inset-2 sm:inset-3 border border-gold/20 rounded pointer-events-none" />
 
       {/* Decorative Scales of Justice Silhouette */}
       <svg
-        className="w-7 h-7 sm:w-9 sm:h-9 text-gold/60 mb-2 sm:mb-3 drop-shadow"
+        className="w-7 h-7 sm:w-8 sm:h-8 text-gold/60 mb-2 drop-shadow"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -93,14 +93,14 @@ export function AdvocateImage({
       </svg>
 
       {/* Initials Crest Badge */}
-      <div className="w-14 h-14 sm:w-18 sm:h-18 rounded-full border border-gold/40 flex items-center justify-center bg-black/40 shadow-inner my-1">
-        <span className="font-serif text-lg sm:text-2xl font-bold tracking-wider text-gold">
+      <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full border border-gold/40 flex items-center justify-center bg-black/40 shadow-inner my-1">
+        <span className="font-serif text-base sm:text-xl font-bold tracking-wider text-gold">
           {initials}
         </span>
       </div>
 
       {/* Advocate Name */}
-      <span className="mt-2 text-xs sm:text-sm font-semibold tracking-wide text-neutral-100 line-clamp-1 max-w-[88%]">
+      <span className="mt-2 text-xs sm:text-sm font-semibold tracking-wide text-neutral-100 line-clamp-1 max-w-[90%]">
         {name}
       </span>
 
