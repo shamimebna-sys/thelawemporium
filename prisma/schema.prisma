@@ -1,0 +1,165 @@
+// Prisma schema for The Law Emporium Admin CMS
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// Site-wide admin user (email/password login, JWT auth)
+model AdminUser {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  createdAt    DateTime @default(now())
+}
+
+/// Generic key/value store for site-wide settings (contact info, etc.)
+model SiteSetting {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     String
+  locale    String?  // "en" | "bn" | null (for bilingual values)
+  updatedAt DateTime @updatedAt
+}
+
+/// Editable content blocks per page section
+model PageSection {
+  id          String   @id @default(uuid())
+  pageSlug    String   // e.g. "home", "about"
+  sectionKey  String   // e.g. "feature-1"
+  badgeNumber String?  // e.g. "01"
+  titleEn     String
+  titleBn     String
+  contentEn   String   @db.Text
+  contentBn   String   @db.Text
+  order       Int      @default(0)
+  updatedAt   DateTime @updatedAt
+
+  @@unique([pageSlug, sectionKey])
+  @@index([pageSlug])
+}
+
+/// Service categories and their items
+model Service {
+  id          String        @id // slug, e.g. "death-sentence"
+  slug        String        @unique
+  category    String        // "criminal" | "constitutional" | etc.
+  indexNumber Int           // 1-based position within category
+  titleEn     String
+  titleBn     String
+  excerptEn   String        @db.Text
+  excerptBn   String        @db.Text
+  bodyEn      String        @db.Text
+  bodyBn      String        @db.Text
+  order       Int           @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  cases       ServiceCase[]
+
+  @@index([category])
+}
+
+/// Individual case entries linked to a service
+model ServiceCase {
+  id            String   @id @default(uuid())
+  serviceId     String
+  caseNumber    Int
+  titleEn       String
+  titleBn       String
+  descriptionEn String   @db.Text
+  descriptionBn String   @db.Text
+  newsLink      String?
+  order         Int      @default(0)
+  service       Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@index([serviceId])
+}
+
+/// Appointment requests submitted from the public form
+model Appointment {
+  id            String            @id @default(uuid())
+  name          String
+  contactNumber String
+  email         String
+  preferredTime String
+  status        AppointmentStatus @default(PENDING)
+  createdAt     DateTime          @default(now())
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+/// Photo gallery assets (/photos and /admin/photos)
+model GalleryItem {
+  id        String   @id @default(uuid())
+  title     String
+  caption   String   @default("")
+  imageUrl  String
+  category  String   // "Court" | "Events" | "Office"
+  featured  Boolean  @default(false)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([category])
+}
+
+/// Press and news coverage (/media and /admin/media)
+model MediaCoverage {
+  id          String   @id @default(uuid())
+  title       String
+  outletName  String
+  articleUrl  String?
+  coverImage  String?
+  publishedAt DateTime @default(now())
+  excerpt     String   @db.Text
+  badge       String   @default("Print") // "Print" | "Electronic" | "Broadcast" | "Press"
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([badge])
+}
+
+/// Legal publications, stories, precedents, and research articles (/resources and /admin/resources)
+model ResourceItem {
+  id        String   @id @default(uuid())
+  title     String
+  slug      String   @unique
+  category  String   // "Research" | "Story" | "Precedent" | "Publication"
+  author    String   @default("The Law Emporium")
+  fileUrl   String?
+  content   String   @db.Text
+  readTime  String   @default("5 min read")
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([category])
+}
+
+/// Advocate and chamber partner profiles (/we, /team, /members/[slug] and /admin/we)
+model AdvocateProfile {
+  id           String   @id @default(uuid())
+  name         String
+  designation  String
+  credentials  String   @default("LL.B. (Hons.), LL.M.")
+  bio          String   @db.Text
+  imageUrl     String?
+  barCouncilId String?
+  email        String?
+  phone        String?
+  order        Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([order])
+}

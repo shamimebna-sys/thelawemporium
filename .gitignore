@@ -32,6 +32,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -39,3 +40,22 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local reference scrape (do not commit)
+/_audit/
+
+# Sensitive local files
+/admin.txt
+
+# Generated Prisma client
+src/generated/prisma/
+
+# Local debug files
+/public/wordmark-debug.html
+
+# Uploaded user files
+/public/uploads/*
+!/public/uploads/.gitkeep
+
+# Orphaned lock files (npm is primary package manager)
+/pnpm-lock.yaml
