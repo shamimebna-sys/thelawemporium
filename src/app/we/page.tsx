@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { MediaFrame } from "@/components/media-frame";
+import { AdvocateImage } from "@/components/advocate-image";
 import { PageTitle } from "@/components/page-title";
 import { getAdvocateProfiles } from "@/lib/cms";
 import { getLocale } from "@/lib/get-locale";
@@ -33,17 +33,13 @@ export default async function WePage() {
               key={adv.id}
               className="group border border-neutral-200 rounded-xl overflow-hidden bg-white hover:shadow-lg transition-shadow flex flex-col"
             >
-              <div className="aspect-[4/3] bg-neutral-100 overflow-hidden">
-                {adv.imageUrl ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={adv.imageUrl}
-                    alt={adv.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                ) : (
-                  <MediaFrame ratio="card" seed={adv.name} label={adv.name} />
-                )}
+              <div className="aspect-[4/3] bg-neutral-900 overflow-hidden">
+                <AdvocateImage
+                  src={adv.imageUrl}
+                  name={adv.name}
+                  designation={adv.designation}
+                  className="group-hover:scale-105 transition-transform duration-500"
+                />
               </div>
               <div className="p-6 flex-1 flex flex-col justify-between gap-4">
                 <div>

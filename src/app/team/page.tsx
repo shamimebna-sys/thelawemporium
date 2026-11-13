@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { MediaFrame } from "@/components/media-frame";
+import { AdvocateImage } from "@/components/advocate-image";
 import { PageTitle } from "@/components/page-title";
 import { getAdvocateProfiles } from "@/lib/cms";
 import { getLocale } from "@/lib/get-locale";
@@ -44,23 +44,19 @@ export default async function TeamPage() {
               </h2>
               {featured ? (
                 <div className="team-head group">
-                  <div className="aspect-square overflow-hidden rounded-lg bg-neutral-100">
-                    {featured.imageUrl ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={featured.imageUrl}
-                        alt={featured.name}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <MediaFrame ratio="square" seed={featured.name} />
-                    )}
+                  <div className="aspect-square overflow-hidden rounded-lg bg-neutral-900 border border-neutral-200/50 shadow-sm">
+                    <AdvocateImage
+                      src={featured.imageUrl}
+                      name={featured.name}
+                      designation={featured.designation}
+                      priority
+                    />
                   </div>
                   <div className="team-head-info">
                     <div className="team-head-name transition-colors duration-300 ease-in-out group-hover:text-gold">
                       {featured.name}
                     </div>
-                    <p className="text-xs font-semibold uppercase tracking-wider text-gold mb-2">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-gold mb-3">
                       {featured.credentials}
                       {featured.barCouncilId ? ` • Bar Council ID: ${featured.barCouncilId}` : ""}
                     </p>
@@ -76,17 +72,12 @@ export default async function TeamPage() {
                 <div className="team-grid">
                   {rest.map((member) => (
                     <article key={member.id} className="member-card group">
-                      <div className="aspect-square overflow-hidden rounded-lg bg-neutral-100 mb-3">
-                        {member.imageUrl ? (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img
-                            src={member.imageUrl}
-                            alt={member.name}
-                            className="w-full h-full object-cover"
-                          />
-                        ) : (
-                          <MediaFrame ratio="square" seed={member.name} />
-                        )}
+                      <div className="aspect-square overflow-hidden rounded-lg bg-neutral-900 border border-neutral-200/50 shadow-sm mb-3">
+                        <AdvocateImage
+                          src={member.imageUrl}
+                          name={member.name}
+                          designation={member.designation}
+                        />
                       </div>
                       <h3 className="member-name transition-colors duration-300 ease-in-out group-hover:text-gold">
                         {member.name}

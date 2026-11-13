@@ -1342,21 +1342,24 @@ textarea {
 }
 
 .team-category {
-  margin-bottom: 150px;
+  margin-bottom: 80px;
 }
 
 .team-wrap {
-  margin-top: 60px;
-  padding-left: 10%;
-  padding-right: 10%;
+  margin-top: 48px;
+  margin-bottom: 80px;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 .team-category h2 {
   font-family: var(--display);
   font-weight: 700;
-  font-size: calc(1.10364rem + 0.52405vw);
-  line-height: 1.2;
-  margin-bottom: 20px;
+  font-size: calc(1.25rem + 0.6vw);
+  line-height: 1.3;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(201, 162, 39, 0.3);
   transition: color 300ms ease-in-out;
 }
 
@@ -1366,20 +1369,25 @@ textarea {
 
 .team-head {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
+  grid-template-columns: minmax(280px, 400px) 1fr;
+  gap: 2.5rem;
+  align-items: center;
 }
 
 .team-head-info {
-  align-self: flex-end;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .team-head-name {
   display: block;
-  font-size: calc(1.10364rem + 0.52405vw);
-  font-weight: 400;
-  line-height: 1.5;
-  margin-bottom: 30px;
+  font-family: var(--display);
+  font-size: calc(1.35rem + 0.75vw);
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: 8px;
   transition: color 300ms ease-in-out;
 }
 
@@ -1391,18 +1399,31 @@ textarea {
 
 .team-head-desc {
   font-size: calc(0.9715rem + 0.2862vw);
-  margin-bottom: 20px;
+  line-height: 1.7;
+  margin-bottom: 0;
+  color: #374151;
 }
 
 .team-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
+  margin-top: 2.5rem;
+}
+
+.member-card {
+  display: flex;
+  flex-direction: column;
 }
 
 .member-name {
+  font-family: var(--display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.35;
   margin-top: 10px;
-  font-weight: 400;
+  margin-bottom: 4px;
+  transition: color 300ms ease-in-out;
 }
 
 .photo-grid {
@@ -1663,6 +1684,27 @@ textarea {
     padding-left: 3%;
     padding-right: 3%;
   }
+
+  .team-wrap {
+    margin-top: 36px;
+    margin-bottom: 60px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .team-head {
+    grid-template-columns: minmax(240px, 320px) 1fr;
+    gap: 2rem;
+  }
+
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .team-category {
+    margin-bottom: 60px;
+  }
 }
 
 @media (max-width: 767px) {
@@ -1713,20 +1755,46 @@ textarea {
     grid-template-columns: 1fr;
   }
 
+  .team-wrap {
+    margin-top: 28px;
+    margin-bottom: 48px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
   .team-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
   }
 
   .team-head {
-    grid-template-columns: auto;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .team-head > div:first-child {
+    max-width: 320px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .team-head-info {
+    text-align: center;
   }
 
   .team-category {
-    margin-bottom: 100px;
+    margin-bottom: 48px;
+  }
+
+  .team-category h2 {
+    font-size: 1.35rem;
+    margin-bottom: 18px;
+    padding-bottom: 8px;
   }
 
   .team-head-name {
-    margin-bottom: 15px;
+    margin-bottom: 8px;
   }
 
   .team-head-desc {
@@ -1754,6 +1822,9 @@ textarea {
 
   .team-grid {
     grid-template-columns: 1fr;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
